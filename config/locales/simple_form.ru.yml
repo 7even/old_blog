@@ -1,0 +1,30 @@
+ru:
+  simple_form:
+    labels:
+      post:
+        title: 'Заголовок'
+        body: 'Содержание'
+      
+    
+    hints:
+      post:
+        # title: 'название поста'
+        body: 'текст обрабатывается движком textile'
+      
+    
+    placeholders:
+      post:
+        title: 'Самый лучший пост'
+        body: 'Как я провел лето'
+      
+    
+    required:
+      text: 'обязательное поле'
+      mark: '*'
+  
+  helpers:
+    submit:
+      post:
+        create: 'Создать пост'
+        update: 'Сохранить пост'
+
