@@ -1,25 +1,33 @@
-<h1>Listing posts</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Body</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<section id="posts">
 <% @posts.each do |post| %>
-  <tr>
-    <td><%= post.title %></td>
-    <td><%= post.body %></td>
-    <td><%= link_to 'Show', post %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <article class="post">
+    <header>
+      <h2><%= post.title %></h2>
+      <p>
+        <%= link_to '7even', '/7even' %> @
+        <time datetime="<%= post.created_at.strftime('%Y-%m-%dT%H:%M') %>">
+          <%= post.created_at.strftime('%Y.%m.%d %H:%M') %>
+        </time>
+      </p>
+    </header>
+    <%= post.body %>
+    <footer>
+      <p><%= link_to 'ноу комментс', post_path(post) %></p>
+    </footer>
+  </article>
 <% end %>
-</table>
+  <footer id="posts_footer">
+    <%= link_to 'New Post', new_post_path %>
+  </footer>
+</section>
 
-<br />
-
-<%= link_to 'New Post', new_post_path %>
+<section id="sidebar">
+  <nav>
+    <h3>Архив</h3>
+    <ul>
+      <li><%= link_to 'Май 2011',    posts_path(:year => 2011, :month => 5) %></li>
+      <li><%= link_to 'Апрель 2011', posts_path(:year => 2011, :month => 4) %></li>
+      <li><%= link_to 'Март 2011',   posts_path(:year => 2011, :month => 3) %></li>
+    </ul>
+  </nav>
+</section>
