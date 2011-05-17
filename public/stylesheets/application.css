@@ -1,3 +1,10 @@
+body {
+  background: url('/images/bg.png') repeat;
+  width: 960px;
+  margin: 15px auto;
+  font-family: Monaco;
+}
+
 .simple_form label {
   float: left;
   width: 100px;
