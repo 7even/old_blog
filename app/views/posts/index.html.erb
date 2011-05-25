@@ -10,7 +10,7 @@
         </time>
       </p>
     </header>
-    <%= post.body %>
+    <%= textilize(post.body) %>
     <footer>
       <p><%= link_to 'ноу комментс', post_path(post) %></p>
     </footer>
