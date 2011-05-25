@@ -8,24 +8,26 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <header id="page_header">
-      <h1>Блог 7even</h1>
-      <h2>про ruby, rails, sinatra, git и всё на свете</h2>
+    <div id="container">
+      <header id="page_header">
+        <h1>Блог 7even</h1>
+        <h2>про ruby, rails, sinatra, git и всё на свете</h2>
+        
+        <nav>
+          <ul>
+            <li><%= link_to_unless_current 'Последние записи', root_path %></li>
+            <li><%= link_to 'Архив', '/archives' %></li>
+            <li><%= link_to 'Контакты', '/contacts' %></li>
+            <li><%= link_to 'Обо мне', '/about' %></li>
+          </ul>
+        </nav>
+      </header>
       
-      <nav>
-        <ul>
-          <li><%= link_to_unless_current 'Последние записи', root_path %></li>
-          <li><%= link_to 'Архив', '/archives' %></li>
-          <li><%= link_to 'Контакты', '/contacts' %></li>
-          <li><%= link_to 'Обо мне', '/about' %></li>
-        </ul>
-      </nav>
-    </header>
-    
-    <%= yield %>
-    
-    <footer id="page_footer">
-      <p>&copy; 2011 7even</p>
-    </footer>
+      <%= yield %>
+      
+      <footer id="page_footer">
+        <p>&copy; 2011 <%= link_to '7even', 'mailto:7@7vn.ru' %></p>
+      </footer>
+    </div>
   </body>
 </html>

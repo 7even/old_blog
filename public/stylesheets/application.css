@@ -1,8 +1,18 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* needed for container min-height */
+  background: gray;
+  font-family: arial,sans-serif;
+  font-size: small;
+  color: #666;
+}
 body {
-  background: url('/images/bg.png') repeat;
-  width: 960px;
-  margin: 15px auto;
+/*  background: url('/images/bg_light.png') repeat;*/
+/*  width: 960px;*/
+/*  margin: 15px auto;*/
   font-family: Monaco;
+  background: url('/images/bg_dark.png');
 }
 
 p {
@@ -13,8 +23,22 @@ p, li {
   line-height: 20px;
 }
 
+div#container {
+  position: relative; /* needed for footer positioning*/
+  margin: 0 auto; /* center, not in IE5 */
+  width: 750px;
+  background: url('/images/bg_light.png');
+  height: auto !important; /* real browsers */
+  height: 100%; /* IE6: treaded as min-height*/
+  min-height: 100%; /* real browsers */
+}
+
 header#page_header {
   width: 100%;
+  padding: 15px 15px 0;
+}
+header#page_header h1 {
+  margin-top: 0;
 }
 header#page_header nav ul {
   list-style: none;
@@ -29,7 +53,8 @@ header#page_header nav ul li {
 
 section#posts {
   float: left;
-  width: 74%;
+  width: 73%;
+  padding: 1em 0 5em 1em; /* bottom padding for footer */
 }
 section#sidebar {
   float: left;
@@ -45,6 +70,14 @@ footer#page_footer {
   display: block;
   text-align: center;
   font-family: Arial;
+  position: absolute;
+  width: 100%;
+  bottom: 0; /* stick to bottom */
+  padding: 5px 0;
+}
+
+footer#page_footer p {
+  margin: 0;
 }
 
 .simple_form label {
