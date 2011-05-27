@@ -5,12 +5,8 @@ html, body {
   background: url('/images/bg_dark.png');
   font-family: arial,sans-serif;
   font-size: small;
-  color: #666;
 }
 body {
-/*  background: url('/images/bg_light.png') repeat;*/
-/*  width: 960px;*/
-/*  margin: 15px auto;*/
   font-family: Monaco;
 }
 
@@ -57,14 +53,18 @@ header#page_header nav ul li {
 section#posts {
   float: left;
   width: 73%;
-  padding: 1em 0 5em 1em; /* bottom padding for footer */
+  padding: 1em 2em 5em 1em; /* bottom padding for footer */
 }
 section#sidebar {
   float: left;
-  width: 25%;
+  width: 20%;
 }
 section#sidebar nav ul {
   padding-left: 15px;
+}
+
+section#post {
+  padding: 1em 1em 5em;
 }
 
 footer#page_footer {
@@ -82,44 +82,11 @@ footer#page_footer p {
   margin: 0;
 }
 
-.simple_form label {
-  float: left;
-  width: 100px;
-  text-align: right;
-  margin: 2px 10px;
+pre {
+  background: none;
+  border: 1px dashed;
 }
-
-.simple_form div.input {
-  margin-bottom: 10px;
-}
-
-.simple_form div.boolean, .simple_form input[type='submit'] {
-  margin-left: 120px;
-}
-
-.simple_form div.boolean label, .simple_form label.collection_radio {
-  float: none;
-  margin: 0;
-}
-
-.simple_form label.collection_radio {
-  margin-right: 10px;
-  margin-left: 2px;
-}
-
-.simple_form .error {
-  clear: left;
-  margin-left: 120px;
+pre code {
   font-size: 12px;
-  color: #D00;
-  display: block;
-}
-
-.simple_form .hint {
-  clear: left;
-  margin-left: 120px;
-  font-size: 12px;
-  color: #555;
-  display: block;
-  font-style: italic;
+  font-family: Monaco;
 }
