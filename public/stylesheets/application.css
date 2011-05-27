@@ -2,7 +2,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%; /* needed for container min-height */
-  background: gray;
+  background: url('/images/bg_dark.png');
   font-family: arial,sans-serif;
   font-size: small;
   color: #666;
@@ -12,7 +12,6 @@ body {
 /*  width: 960px;*/
 /*  margin: 15px auto;*/
   font-family: Monaco;
-  background: url('/images/bg_dark.png');
 }
 
 p {
@@ -71,7 +70,6 @@ footer#page_footer {
   text-align: center;
   font-family: Arial;
   position: absolute;
-  width: 100%;
   bottom: 0; /* stick to bottom */
   padding: 5px 0;
 }
