@@ -25,11 +25,15 @@ p, li {
 div#container {
   position: relative; /* needed for footer positioning*/
   margin: 0 auto; /* center, not in IE5 */
-  width: 750px;
+  width: 900px;
   background: url('/images/bg_light.png');
   height: auto !important; /* real browsers */
   height: 100%; /* IE6: treaded as min-height*/
   min-height: 100%; /* real browsers */
+  -moz-box-shadow: 0 0 30px #333;
+  -webkit-box-shadow: 0 0 30px #333;
+  -o-box-shadow: 0 0 30px #333;
+  box-shadow: 0 0 50px #333;
 }
 
 header#page_header {
