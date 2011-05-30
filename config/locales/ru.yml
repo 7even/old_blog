@@ -1,0 +1,18 @@
+ru:
+  posts:
+    index:
+      new: Новый пост
+    
+    new:
+      header: Новый пост
+    
+    edit:
+      header: Редактирование поста
+    
+    common:
+      to_index: < к списку постов
+      show: посмотреть
+      edit: изменить
+    
+  
+

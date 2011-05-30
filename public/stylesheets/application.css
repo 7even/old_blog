@@ -96,6 +96,10 @@ article.post header p {
   text-align: right;
 }
 
+section#post p.links {
+  margin-top: 1em;
+}
+
 pre {
   background: none;
   border: 1px dashed;

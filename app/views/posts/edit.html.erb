@@ -1,8 +1,10 @@
 <section id="post">
-  <h1>Editing post</h1>
+  <h1><%= t('posts.edit.header') %></h1>
   
   <%= render 'form' %>
   
-  <%= link_to 'Show', @post %> |
-  <%= link_to 'Back', posts_path %>
+  <p class="links">
+    <%= link_to t('posts.common.to_index'), posts_path %> |
+    <%= link_to t('posts.common.show'), @post %>
+  </p>
 </section>
