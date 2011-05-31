@@ -25,3 +25,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 end
+
+def error_for(model_id, attr_id)
+  error_id = "activerecord.errors.models.#{model_id}.attributes.#{attr_id}.blank"
+  I18n.t(error_id)
+end
