@@ -1,15 +1,11 @@
 require 'spec_helper'
 
-# Specs in this file have access to a helper object that includes
-# the PostsHelper. For example:
-#
-# describe PostsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       helper.concat_strings("this","that").should == "this that"
-#     end
-#   end
-# end
 describe PostsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#format_date" do
+    it "correctly formats a given date" do
+      source = Time.new(2011, 6, 1, 02, 0, 0)
+      result = '<time datetime="2011-06-01T02:00">2011.06.01 | 02:00</time>'
+      helper.format_date(source).should == result
+    end
+  end
 end

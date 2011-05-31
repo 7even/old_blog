@@ -72,9 +72,13 @@ section#comments {
 section#comments h3 {
   margin-top: 0;
 }
+article.comment {
+  margin-bottom: 2.5em;
+}
 
 p.links {
   padding: 1em 1em 5em;
+  margin: 0;
 }
 
 footer#page_footer {

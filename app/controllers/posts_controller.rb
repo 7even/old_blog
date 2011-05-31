@@ -21,6 +21,12 @@ class PostsController < ApplicationController
     end
   end
   
+  def create_comment
+    @post = Post.find(params[:id])
+    @post.comments << Comment.create(params[:comment])
+    redirect_to @post
+  end
+  
   # GET /posts/new
   # GET /posts/new.xml
   def new

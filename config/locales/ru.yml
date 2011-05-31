@@ -5,6 +5,7 @@ ru:
     
     show:
       comments: Комментарии
+      reply: ответить
     
     new:
       header: Новый пост
