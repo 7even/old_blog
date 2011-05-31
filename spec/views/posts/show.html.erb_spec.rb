@@ -4,7 +4,8 @@ describe "posts/show.html.erb" do
   before(:each) do
     @post = assign(:post, stub_model(Post,
       :title => "Title",
-      :body => "MyText"
+      :body => "MyText",
+      :created_at => Date.new(2011, 4, 16)
     ))
   end
   

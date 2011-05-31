@@ -4,12 +4,14 @@ describe "posts/index.html.erb" do
   before(:each) do
     assign(:posts, [
       stub_model(Post,
-        :title => "Title",
-        :body => "MyText"
+        :title      => 'Title',
+        :body       => 'MyText',
+        :created_at => Date.new(2011, 3, 1)
       ),
       stub_model(Post,
-        :title => "Title",
-        :body => "MyText"
+        :title      => 'Title',
+        :body       => 'MyText',
+        :created_at => Date.new(2011, 4, 16)
       )
     ])
   end
@@ -17,8 +19,8 @@ describe "posts/index.html.erb" do
   it "renders a list of posts" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "Title".to_s, :count => 2
+    assert_select "article.post>header>h2", :text => "Title".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
+    assert_select "article.post", :text => /MyText/, :count => 2
   end
 end

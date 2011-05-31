@@ -15,4 +15,20 @@ ru:
       edit: изменить
     
   
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            title:
+              blank: Необходимо указать название
+            
+            body:
+              blank: Необходимо написать сам пост :)
+            
+          
+        
+      
+    
+  
 
