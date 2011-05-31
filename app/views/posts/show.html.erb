@@ -1,7 +1,7 @@
 <section id="post">
   <p id="notice"><%= notice %></p>
   
-  <article class="post">
+  <article>
     <header>
       <h2><%= @post.title %></h2>
       <p>
@@ -11,10 +11,26 @@
     </header>
     
     <%= textilize(@post.body) %>
-    
-    <p class="links">
-      <%= link_to t('posts.common.to_index'), posts_path %> |
-      <%= link_to t('posts.common.edit'), edit_post_path(@post) %>
-    </p>
   </article>
 </section>
+
+<section id="comments">
+<% if @post.comments.size %>
+  <h3><%= t('posts.show.comments') %></h3>
+  <% @post.comments.each do |comment| %>
+    <article class="comment">
+      <header>
+        <%= link_to '7even', '/7even' %> @
+        <%= format_date(comment.created_at) %>
+      </header>
+      
+      <%= textilize(comment.content) %>
+    </article>
+  <% end %>
+<% end %>
+  </section>
+
+<p class="links">
+  <%= link_to t('posts.common.to_index'), posts_path %> |
+  <%= link_to t('posts.common.edit'), edit_post_path(@post) %>
+</p>

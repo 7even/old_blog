@@ -64,6 +64,16 @@ section#sidebar nav ul {
 }
 
 section#post {
+  padding: 1em 1em 0;
+}
+section#comments {
+  padding: 0 1em;
+}
+section#comments h3 {
+  margin-top: 0;
+}
+
+p.links {
   padding: 1em 1em 5em;
 }
 

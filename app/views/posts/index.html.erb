@@ -10,7 +10,7 @@
     </header>
     <%= textilize(post.body) %>
     <footer>
-      <p><%= link_to 'ноу комментс', post_path(post) %></p>
+      <p><%= link_to t(:comments, :count => post.comments.size), post_path(post) %></p>
     </footer>
   </article>
 <% end %>

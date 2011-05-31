@@ -3,6 +3,9 @@ ru:
     index:
       new: Новый пост
     
+    show:
+      comments: Комментарии
+    
     new:
       header: Новый пост
     
@@ -14,6 +17,12 @@ ru:
       show: посмотреть
       edit: изменить
     
+  
+  comments:
+    one: '%{count} комментарий'
+    few: '%{count} комментария'
+    many: '%{count} комментариев'
+    other: '%{count} комментария'
   
   activerecord:
     errors:
