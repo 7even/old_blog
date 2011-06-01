@@ -1,0 +1,20 @@
+<article class="comment">
+  <header>
+    <%= link_to '7even', '/7even' %> @
+    <%= format_date(comment.created_at) %>
+  </header>
+  
+  <%= textilize(comment.content) %>
+  
+  <footer>
+    <div style="display:none;" id="reply_to_<%= comment.id %>">
+      <%= simple_form_for Comment.new, :url => create_comment_post_path do |f| %>
+        <%= f.input :parent_id, :value => comment.id, :as => :hidden %>
+        <%= f.input :content, :label => false, :input_html => {:rows => 3} %>
+        <%= f.button :submit %>
+      <% end %>
+    </div>
+    
+    <%= link_to_function t('posts.show.reply') { |page| page.visual_effect :appear, "reply_to_#{comment.id}" } %>
+  </footer>
+</article>

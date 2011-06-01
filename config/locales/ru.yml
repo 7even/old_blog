@@ -6,6 +6,7 @@ ru:
     show:
       comments: Комментарии
       reply: ответить
+      no_comments: К этой записи пока нет комментариев
     
     new:
       header: Новый пост
