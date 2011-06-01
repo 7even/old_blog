@@ -1,0 +1,5 @@
+<%= form_for comment, :url => create_comment_post_path(@post) do |f| %>
+  <%= f.hidden_field :parent_id %>
+  <%= f.text_area :content, :rows => 3 %><br />
+  <%= f.submit 'Отправить' %>
+<% end %>

@@ -43,6 +43,9 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mootools-rails (0.4)
+      railties (~> 3.0)
+      thor (~> 0.14)
     polyglot (0.3.1)
     rack (1.2.2)
     rack-mount (0.6.14)
@@ -90,6 +93,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   ancestry
+  mootools-rails
   rails (= 3.0.7)
   rspec-rails
   shoulda-matchers

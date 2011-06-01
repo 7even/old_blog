@@ -7,14 +7,10 @@
   <%= textilize(comment.content) %>
   
   <footer>
-    <div style="display:none;" id="reply_to_<%= comment.id %>">
-      <%= simple_form_for Comment.new, :url => create_comment_post_path do |f| %>
-        <%= f.input :parent_id, :value => comment.id, :as => :hidden %>
-        <%= f.input :content, :label => false, :input_html => {:rows => 3} %>
-        <%= f.button :submit %>
-      <% end %>
+    <div style="display:none;" class="reply_form" id="reply_form_<%= comment.id %>">
+      <%= render 'comments/form', :comment => Comment.new(:parent_id => comment.id) %>
     </div>
     
-    <%= link_to_function t('posts.show.reply') { |page| page.visual_effect :appear, "reply_to_#{comment.id}" } %>
+    <%= link_to t('posts.show.reply'), '#', :id => "reply_link_#{comment.id}", :class => 'reply_link' %>
   </footer>
 </article>

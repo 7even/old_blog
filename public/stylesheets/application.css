@@ -75,7 +75,7 @@ section#comments h3 {
 article.comment {
   margin-bottom: 2.5em;
 }
-.nested_comments {
+.nested_comments, .reply_form {
   margin-left: 30px;
 }
 span.no_comments {

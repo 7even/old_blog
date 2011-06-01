@@ -15,12 +15,15 @@
 </section>
 
 <section id="comments">
-<% if @post.has_comments? %>
-  <h3><%= t('posts.show.comments') %></h3>
-  <%= nested_comments @post.comments.arrange(:order => :created_at) %>
-<% else %>
-  <span class="no_comments"><%= t('posts.show.no_comments') %></span>
-<% end %>
+  <% if @post.has_comments? %>
+    <h3><%= t('posts.show.comments') %></h3>
+    <%= nested_comments @post.comments.arrange(:order => :created_at) %>
+  <% else %>
+    <span class="no_comments"><%= t('posts.show.no_comments') %></span>
+  <% end %>
+  
+  <h3><%= t('posts.show.new_comment') %></h3>
+  <%= render 'comments/form', :comment => Comment.new %>
 </section>
 
 <p class="links">

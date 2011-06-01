@@ -94,6 +94,16 @@ describe PostsController do
     end
   end
   
+  describe "POST create_comment" do
+    context "without parent_id" do
+      it "creates a root comment"
+    end
+    
+    context "with parent_id" do
+      it "creates a child comment"
+    end
+  end
+  
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested post" do
