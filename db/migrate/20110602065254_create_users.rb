@@ -5,11 +5,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password
       t.string :name
       t.boolean :admin
-
+      
       t.timestamps
     end
   end
-
+  
   def self.down
     drop_table :users
   end
