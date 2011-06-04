@@ -8,19 +8,21 @@ class UsersController < ApplicationController
   end
   
   def login
-    @user = User.authenticate(params[:email], params[:password])
-    
-    if @user
-      session[:user_id] = @user.id
-      redirect_to root_path, :notice => t('users.logged_in')
-    else
-      redirect_to root_path, :alert => t('users.invalid_credentials')
+    if request.post?
+      @user = User.authenticate(params[:email], params[:password])
+      
+      if @user
+        session[:user_id] = @user.id
+        redirect_to root_path
+      else
+        redirect_to login_path, :alert => t('users.invalid_credentials')
+      end
     end
   end
   
   def logout
     session[:user_id] = nil
-    redirect_to root_path, :notice => t('users.logged_out')
+    redirect_to :back
   end
   
   def new
@@ -55,8 +57,11 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     
-    flash.now[:notice] = t('users.saved') if @user.update_attributes(params[:user])
-    render :action => 'edit'
+    if @user.update_attributes(params[:user])
+      redirect_to edit_user_path(@user), :notice => t('users.saved')
+    else
+      render :action => 'edit'
+    end
   end
   
   def destroy

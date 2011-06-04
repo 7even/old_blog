@@ -20,8 +20,14 @@
             <li><%= link_to 'Контакты', '/contacts' %></li>
             <li><%= link_to 'Обо мне', '/about' %></li>
           </ul>
+          
+          <%= render 'shared/auth' %>
         </nav>
       </header>
+      
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
       
       <%= yield %>
       

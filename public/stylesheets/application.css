@@ -33,13 +33,14 @@ div#container {
 }
 
 header#page_header {
-  width: 100%;
+  /*width: 100%;*/
   padding: 15px 15px 0;
 }
 header#page_header h1 {
   margin-top: 0;
 }
 header#page_header nav ul {
+  float: left;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -48,6 +49,9 @@ header#page_header nav ul li {
   padding: 0;
   margin: 0 10px 0 0;
   display: inline;
+}
+header#page_header nav #auth {
+  text-align: right;
 }
 
 section#posts {
@@ -85,6 +89,16 @@ span.no_comments {
 p.links {
   padding: 1em 1em 5em;
   margin: 0;
+}
+
+section#authentication {
+  padding: 15px 15px 5em;
+}
+section#authentication p label {
+  float: left;
+  text-align: right;
+  margin: 2px 10px;
+  width: 100px;
 }
 
 footer#page_footer {
@@ -127,4 +141,9 @@ pre {
 pre code {
   font-size: 12px;
   font-family: Monaco;
+}
+
+#flash_alert {
+  padding: 15px 15px 0;
+  color: red;
 }

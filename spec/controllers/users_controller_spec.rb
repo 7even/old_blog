@@ -20,20 +20,26 @@ describe UsersController do
   end
   
   describe "GET 'login'" do
+    it "should be successful" do
+      get 'login'
+      response.should be_success
+    end
+  end
+  
+  describe "POST 'login'" do
     context "with valid credentials" do
       it "should authorize user" do
-        get 'login', :email => @user.email, :password => 'secret'
+        post 'login', :email => @user.email, :password => 'secret'
         session[:user_id].should_not be_nil
         response.should redirect_to(root_path)
-        flash[:notice].should == I18n.t('users.logged_in')
       end
     end
     
     context "with invalid credentials" do
       it "should not let user in" do
-        get 'login', :email => 'ololo@lol.com', :secret => 'iamwrong'
+        post 'login', :email => 'ololo@lol.com', :secret => 'iamwrong'
         session[:user_id].should be_nil
-        response.should redirect_to(root_path)
+        response.should redirect_to(login_path)
         flash[:alert].should == I18n.t('users.invalid_credentials')
       end
     end
@@ -41,10 +47,11 @@ describe UsersController do
   
   describe "GET 'logout'" do
     it "should erase user_id from session" do
+      post 'login', :email => @user.email, :password => 'secret'
+      @request.env['HTTP_REFERER'] = 'http://test.host/' # для redirect_to :back
       get 'logout'
       session[:user_id].should be_nil
-      response.should redirect_to(root_path)
-      flash[:notice].should == I18n.t('users.logged_out')
+      response.should redirect_to(:back)
     end
   end
   
@@ -113,7 +120,7 @@ describe UsersController do
     context "with valid attributes" do
       it "should be successful" do
         get 'update', :id => @user.id
-        response.should be_success
+        response.should redirect_to(edit_user_path(@user))
         flash.now[:notice].should == I18n.t('users.saved')
       end
     end

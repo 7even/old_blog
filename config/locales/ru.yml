@@ -1,4 +1,10 @@
 ru:
+  layout:
+    login: войти
+    register: зарегистрироваться
+    welcome: Вы вошли как 
+    logout: выйти
+  
   posts:
     index:
       new: Новый пост
@@ -26,6 +32,19 @@ ru:
     few: '%{count} комментария'
     many: '%{count} комментариев'
     other: '%{count} комментария'
+  
+  users:
+    login: Войти
+    invalid_credentials: E-mail или пароль неверны
+    confirm_please: На указанный вами адрес email отправлено письмо с инструкцией по активации аккаунта.
+    saved: Настройки сохранены
+    destroyed: Пользователь удален
+  
+  attributes:
+    user:
+      email: электропочта
+      password: пароль
+    
   
   activerecord:
     errors:
