@@ -2,12 +2,6 @@ module Authorization
   module ClassMethods
     SALT_TOKEN = 'ololo_trololo'
     
-    def create(attributes)
-      attributes[:salt]     = generate_salt
-      attributes[:password] = encode_password(attributes[:password], attributes[:salt])
-      super(attributes)
-    end
-    
     def authenticate(email, raw_password)
       user = find_by_email(email)
       if user.present? && user.password_valid?(raw_password)
@@ -29,6 +23,12 @@ module Authorization
   end
   
   module InstanceMethods
+    def save(*args)
+      self.salt     = self.class.generate_salt
+      self.password = self.class.encode_password(self.password, self.salt)
+      super(*args)
+    end
+    
     def password_valid?(raw_password)
       self.class.encode_password(raw_password, self.salt) == self.password
     end

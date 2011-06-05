@@ -5,6 +5,11 @@ ru:
         title: 'Заголовок'
         body: 'Содержание'
       
+      user:
+        email: 'Почта'
+        password: 'Пароль'
+        name: 'Имя'
+      
     
     hints:
       post:
@@ -21,10 +26,18 @@ ru:
     required:
       text: 'обязательное поле'
       mark: '*'
+    
   
   helpers:
     submit:
       post:
         create: 'Создать пост'
         update: 'Сохранить пост'
+      
+      user:
+        create: 'Зарегистрироваться'
+        update: 'Сохранить'
+      
+    
+  
 

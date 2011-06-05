@@ -5,6 +5,7 @@ describe User do
   
   it { should validate_presence_of(:email).with_message    error_for(:user, :email) }
   it { should validate_presence_of(:password).with_message error_for(:user, :password) }
+  it { should validate_presence_of(:name).with_message error_for(:user, :name) }
   it { should validate_uniqueness_of(:email).with_message  error_for(:user, :email, :taken) }
   
   describe ".create" do

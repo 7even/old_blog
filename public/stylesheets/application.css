@@ -101,6 +101,10 @@ section#authentication p label {
   width: 100px;
 }
 
+section#user {
+  padding: 15px 15px 5em;
+}
+
 footer#page_footer {
   clear: both;
   width: 100%;
@@ -144,6 +148,12 @@ pre code {
 }
 
 #flash_alert {
+  clear: both;
   padding: 15px 15px 0;
   color: red;
+}
+#flash_notice {
+  clear: both;
+  padding: 15px 15px 0;
+  color: green;
 }
