@@ -67,7 +67,7 @@ describe UsersController do
     context "with valid attributes" do
       it "should be successful" do
         user_attributes = {'email' => 'ololo@lol.com', 'password' => 'secret'}
-        user = stub('user', :save => true)
+        user = stub('user', :save => true).as_null_object # вместо as_null_object нужно реализовать token
         User.should_receive(:new).with(user_attributes).and_return(user)
         get 'create', :user => user_attributes
         response.should redirect_to(root_path)

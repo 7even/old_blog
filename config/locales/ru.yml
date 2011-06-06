@@ -77,4 +77,9 @@ ru:
       
     
   
+  mailer:
+    confirmation:
+      subject: Подтверждение регистрации на 7vn.ru
+    
+  
 

@@ -33,6 +33,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     
     if @user.save
+      UserMailer.confirmation_email(@user).deliver
       redirect_to root_path, :notice => t('users.confirm_please')
     else
       render :action => 'new'
