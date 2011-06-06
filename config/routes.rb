@@ -1,8 +1,8 @@
 Blog::Application.routes.draw do
   resources :users
-  match 'login' => 'users#login'
-  get 'logout'  => 'users#logout'
-  get 'confirm' => 'users#confirm'
+  match 'login'         => 'users#login'
+  get 'logout'          => 'users#logout'
+  get 'confirm/:token'  => 'users#confirm'
   
   resources :posts do
     member do

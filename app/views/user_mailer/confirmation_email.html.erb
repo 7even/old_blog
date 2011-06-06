@@ -4,14 +4,15 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h2>Welcome to 7vn.ru, <%= @user.name %></h2>
+    <h2>Добро пожаловать на 7vn.ru, <%= @user.name %></h2>
     <p>
-      You have successfully signed up to 7vn.ru,
-      your email is: <%= @user.email %>.<br/>
+      Вы зарегистрировались на 7vn.ru,
+      используя данный адрес e-mail (<%= @user.email %>).<br/>
     </p>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+      Чтобы завершить процесс регистрации, пройдите
+      по этой ссылке: <%= @url %>.
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>Спасибо за регистрацию!</p>
   </body>
 </html>

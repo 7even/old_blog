@@ -41,13 +41,12 @@ class UsersController < ApplicationController
   end
   
   def confirm
-    render :nothing => true, :status => :forbidden unless params[:token]
-    
-    user = User.find_by_token(params[:token])
-    if user.present? && user.update_attribute(:confirmed, true)
-      @success = true
+    @user = User.find_by_token(params[:token])
+    if @user
+      @user.update_attribute(:confirmed, true)
+      session[:user_id] = @user.id
     else
-      @success = false
+      redirect_to root_path, :alert => t('layout.invalid_token')
     end
   end
   

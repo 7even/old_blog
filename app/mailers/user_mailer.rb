@@ -2,14 +2,14 @@ class UserMailer < ActionMailer::Base
   default :from => "noreply@7vn.ru"
   
   HOSTS = {
-    :development => 'localhost:3000',
+    :development => '7vn.dev',
     :test        => 'test.host',
     :production  => '7vn.ru'
   }
   
   def confirmation_email(user)
     @user = user
-    @url = "http://#{UserMailer.host}/users/confirm&token=#{@user.token}"
+    @url = "http://#{UserMailer.host}/confirm/#{@user.token}"
     mail :to => @user.email, :subject => t('mailer.confirmation.subject')
   end
   

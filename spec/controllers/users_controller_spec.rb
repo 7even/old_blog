@@ -88,23 +88,28 @@ describe UsersController do
   
   describe "GET 'confirm'" do
     context "with valid token" do
-      it "should be successful" do
+      before(:each) do
         get 'confirm', :token => @user.token
-        assigns(:success).should be_true
+      end
+      
+      it "should be successful" do
+        response.should_not redirect_to(root_path)
+      end
+      
+      it "should set user as confirmed" do
+        assigns(:user).confirmed.should be_true
+      end
+      
+      it "should login user" do
+        session[:user_id].should == @user.id
       end
     end
     
     context "with invalid token" do
-      it "should not be successful" do
+      it "should redirect to root with alert" do
         get 'confirm', :token => 'ololo'
-        assigns(:success).should be_false
-      end
-    end
-    
-    context "without token" do
-      it "should return 403" do
-        get 'confirm'
-        response.code.to_i.should == 403
+        response.should redirect_to(root_path)
+        flash[:alert].should == I18n.t('layout.invalid_token')
       end
     end
   end

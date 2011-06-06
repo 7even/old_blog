@@ -105,6 +105,10 @@ section#user {
   padding: 15px 15px 5em;
 }
 
+section#confirmation {
+  padding: 15px 15px 5em;
+}
+
 footer#page_footer {
   clear: both;
   width: 100%;

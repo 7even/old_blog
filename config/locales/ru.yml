@@ -4,6 +4,7 @@ ru:
     register: зарегистрироваться
     welcome: Вы вошли как 
     logout: выйти
+    invalid_token: Неверный код авторизации!
   
   posts:
     index:
@@ -40,6 +41,10 @@ ru:
     saved: Настройки сохранены
     destroyed: Пользователь удален
     new: Регистрация
+  
+  confirm:
+    header: Подтверждение регистрации
+    message: "Вы подтвердили свою регистрацию на сайте :)"
   
   attributes:
     user:
