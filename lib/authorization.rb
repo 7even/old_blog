@@ -11,26 +11,35 @@ module Authorization
       end
     end
     
-    def encode_password(raw_password, salt)
-      require 'digest/md5'
-      Digest::MD5.hexdigest(raw_password + SALT_TOKEN + salt)
-    end
-    
     def generate_salt
       require 'base64'
       ::Base64.encode64("#{Time.now}|#{rand(666)}")
+    end
+    
+    def encode_password(raw_password, salt)
+      require 'digest/md5'
+      Digest::MD5.hexdigest(raw_password + SALT_TOKEN + salt)
     end
   end
   
   module InstanceMethods
     def save(*args)
-      self.salt     = self.class.generate_salt
-      self.password = self.class.encode_password(self.password, self.salt)
+      if self.new_record?
+        self.salt     = self.class.generate_salt
+        self.password = self.class.encode_password(self.password, self.salt)
+        self.token    = self.generate_token
+      end
+      
       super(*args)
     end
     
     def password_valid?(raw_password)
       self.class.encode_password(raw_password, self.salt) == self.password
+    end
+    
+    def generate_token
+      require 'digest/md5'
+      Digest::MD5.hexdigest(self.email + '-\|/-' + self.name)
     end
   end
   

@@ -18,6 +18,11 @@ describe User do
       subject.password.should_not be_nil
       subject.password.length.should == 32
     end
+    
+    it "generates a token" do
+      subject.token.should_not be_nil
+      subject.token.length.should == 32
+    end
   end
   
   describe ".authenticate" do
