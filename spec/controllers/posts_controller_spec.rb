@@ -23,7 +23,8 @@ describe PostsController do
   # Post. As you add validations to Post, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:title => 'Hello', :body => 'world!'}
+    author = stub_model(User)
+    {:title => 'Hello', :body => 'world!', :author => author}
   end
   
   describe "GET index" do
@@ -59,10 +60,20 @@ describe PostsController do
   
   describe "POST create" do
     describe "with valid params" do
+      before(:each) do
+        @user = User.create(email: '7@7vn.ru', password: 'secret', name: '7even')
+        session[:user_id] = @user.id
+      end
+      
       it "creates a new Post" do
         expect {
           post :create, :post => valid_attributes
         }.to change(Post, :count).by(1)
+      end
+      
+      it "sets current_user as an author" do
+        post :create, :post => valid_attributes
+        assigns(:post).author.should == @user
       end
       
       it "assigns a newly created post as @post" do

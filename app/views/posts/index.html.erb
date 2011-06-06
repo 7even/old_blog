@@ -4,7 +4,7 @@
     <header>
       <h2><%= post.title %></h2>
       <p>
-        <%= link_to '7even', '/7even' %> @
+        <%= link_to post.author.name, post.author %> @
         <%= format_date(post.created_at) %>
       </p>
     </header>
