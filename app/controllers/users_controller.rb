@@ -11,11 +11,13 @@ class UsersController < ApplicationController
     if request.post?
       @user = User.authenticate(params[:email], params[:password])
       
-      if @user
+      if @user == :not_confirmed
+        flash.now[:alert] = t('users.not_confirmed')
+      elsif @user
         session[:user_id] = @user.id
         redirect_to root_path
       else
-        redirect_to login_path, :alert => t('users.invalid_credentials')
+        flash.now[:alert] = t('users.invalid_credentials')
       end
     end
   end

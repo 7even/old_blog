@@ -4,10 +4,13 @@ module Authorization
     
     def authenticate(email, raw_password)
       user = find_by_email(email)
-      if user.present? && user.password_valid?(raw_password)
+      
+      if user.blank? || user.password_invalid?(raw_password)
+        nil
+      elsif user.confirmed?
         user
       else
-        nil
+        :not_confirmed
       end
     end
     
@@ -35,6 +38,10 @@ module Authorization
     
     def password_valid?(raw_password)
       self.class.encode_password(raw_password, self.salt) == self.password
+    end
+    
+    def password_invalid?(raw_password)
+      !password_valid?(raw_password)
     end
     
     def generate_token

@@ -28,7 +28,15 @@ describe User do
   describe ".authenticate" do
     context "with valid credentials" do
       it "authenticates a user" do
-        User.authenticate(subject.email, 'secret').should_not be_nil
+        subject.update_attribute(:confirmed, true)
+        User.authenticate(subject.email, 'secret').should be_a(User)
+      end
+    end
+    
+    context "for unconfirmed user" do
+      it "returns nil" do
+        subject.update_attribute(:confirmed, false)
+        User.authenticate(subject.email, 'secret').should == :not_confirmed
       end
     end
     

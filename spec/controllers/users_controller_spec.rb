@@ -28,18 +28,32 @@ describe UsersController do
   
   describe "POST 'login'" do
     context "with valid credentials" do
-      it "should authorize user" do
-        post 'login', :email => @user.email, :password => 'secret'
-        session[:user_id].should_not be_nil
-        response.should redirect_to(root_path)
+      context "for confirmed user" do
+        it "should authorize user" do
+          User.should_receive(:authenticate).and_return(@user)
+          post 'login', :email => @user.email, :password => 'secret'
+          session[:user_id].should_not be_nil
+          response.should redirect_to(root_path)
+        end
+      end
+      
+      context "for not confirmed user" do
+        it "should return a message" do
+          User.should_receive(:authenticate).and_return(:not_confirmed)
+          post 'login', :email => @user.email, :password => 'secret'
+          session[:user_id].should be_nil
+          response.should render_template('login')
+          flash[:alert].should == I18n.t('users.not_confirmed')
+        end
       end
     end
     
     context "with invalid credentials" do
       it "should not let user in" do
+        User.should_receive(:authenticate).and_return(nil)
         post 'login', :email => 'ololo@lol.com', :secret => 'iamwrong'
         session[:user_id].should be_nil
-        response.should redirect_to(login_path)
+        response.should render_template('login')
         flash[:alert].should == I18n.t('users.invalid_credentials')
       end
     end
