@@ -7,6 +7,7 @@ gem 'RedCloth'
 
 gem 'simple_form'
 gem 'ancestry'
+gem 'cancan'
 
 group :development, :test do
   gem 'sqlite3'

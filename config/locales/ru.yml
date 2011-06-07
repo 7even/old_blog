@@ -5,6 +5,7 @@ ru:
     welcome: Вы вошли как 
     logout: выйти
     invalid_token: Неверный код авторизации!
+    access_restricted: user.should_not hack(this.site)
   
   posts:
     index:

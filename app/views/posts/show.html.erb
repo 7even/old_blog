@@ -20,8 +20,10 @@
     <span class="no_comments"><%= t('posts.show.no_comments') %></span>
   <% end %>
   
-  <h3><%= t('posts.show.new_comment') %></h3>
-  <%= render 'comments/form', :comment => Comment.new %>
+  <% if can? :create, Comment %>
+    <h3><%= t('posts.show.new_comment') %></h3>
+    <%= render 'comments/form', :comment => Comment.new %>
+  <% end %>
 </section>
 
 <p class="links">

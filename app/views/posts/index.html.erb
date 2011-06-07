@@ -15,7 +15,7 @@
   </article>
 <% end %>
   <footer id="posts_footer">
-    <%= link_to t('posts.index.new'), new_post_path %>
+    <%= link_to t('posts.index.new'), new_post_path if can? :create, Post %>
   </footer>
 </section>
 

@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  authorize_resource :except => :create_comment
+  
   # GET /posts
   # GET /posts.xml
   def index
@@ -22,6 +24,7 @@ class PostsController < ApplicationController
   end
   
   def create_comment
+    authorize! :create, Comment
     @post = Post.find(params[:id])
     @post.comments << Comment.create(params[:comment])
     redirect_to @post
