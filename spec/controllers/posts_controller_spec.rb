@@ -27,6 +27,25 @@ describe PostsController do
     {:title => 'Hello', :body => 'world!', :author => author}
   end
   
+  shared_examples_for "restricted actions" do
+    it "redirects to root_path with alert" do
+      response.should redirect_to(root_path)
+      flash[:alert].should == I18n.t('layout.access_restricted')
+    end
+  end
+  
+  before(:each) do
+    @admin = User.create! email: 'admin@7vn.ru',
+                       password: 'secret',
+                           name: 'admin',
+                      confirmed: true,
+                          admin: true
+  end
+  
+  def login_admin
+    session[:user_id] = @admin.id
+  end
+  
   describe "GET index" do
     it "assigns all posts as @posts" do
       post = Post.create! valid_attributes
@@ -44,64 +63,104 @@ describe PostsController do
   end
   
   describe "GET new" do
-    it "assigns a new post as @post" do
-      get :new
-      assigns(:post).should be_a_new(Post)
+    context "by admin" do
+      before(:each) do
+        login_admin
+      end
+      
+      it "assigns a new post as @post" do
+        get :new
+        assigns(:post).should be_a_new(Post)
+      end
+    end
+    
+    context "by user/guest" do
+      before(:each) do
+        get :new
+      end
+      
+      it_behaves_like "restricted actions"
     end
   end
   
   describe "GET edit" do
-    it "assigns the requested post as @post" do
-      post = Post.create! valid_attributes
-      get :edit, :id => post.id.to_s
-      assigns(:post).should eq(post)
+    before(:each) do
+      @post = Post.create! valid_attributes
+    end
+    
+    context "by admin" do
+      before(:each) do
+        login_admin
+      end
+      
+      it "assigns the requested post as @post" do
+        get :edit, :id => @post.id
+        assigns(:post).should == @post
+      end
+    end
+    
+    context "by user/guest" do
+      before(:each) do
+        get :edit, id: @post.id
+      end
+      
+      it_behaves_like "restricted actions"
     end
   end
   
   describe "POST create" do
-    describe "with valid params" do
+    context "by admin" do
       before(:each) do
-        @user = User.create(email: '7@7vn.ru', password: 'secret', name: '7even')
-        session[:user_id] = @user.id
+        login_admin
       end
       
-      it "creates a new Post" do
-        expect {
-          post :create, :post => valid_attributes
-        }.to change(Post, :count).by(1)
+      describe "with valid params" do
+        it "creates a new Post" do
+          expect {
+            post :create, post: valid_attributes
+          }.to change(Post, :count).by(1)
+        end
+        
+        it "sets current_user as an author" do
+          post :create, post: valid_attributes
+          assigns(:post).author.should == @admin
+        end
+        
+        it "assigns a newly created post as @post" do
+          post :create, post: valid_attributes
+          assigns(:post).should be_a(Post)
+          assigns(:post).should be_persisted
+        end
+        
+        it "redirects to the created post" do
+          post :create, post: valid_attributes
+          response.should redirect_to(Post.last)
+        end
       end
       
-      it "sets current_user as an author" do
-        post :create, :post => valid_attributes
-        assigns(:post).author.should == @user
-      end
-      
-      it "assigns a newly created post as @post" do
-        post :create, :post => valid_attributes
-        assigns(:post).should be_a(Post)
-        assigns(:post).should be_persisted
-      end
-      
-      it "redirects to the created post" do
-        post :create, :post => valid_attributes
-        response.should redirect_to(Post.last)
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved post as @post" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Post.any_instance.stub(:save).and_return(false)
+          post :create, post: {}
+          assigns(:post).should be_a_new(Post)
+        end
+        
+        it "re-renders the 'new' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Post.any_instance.stub(:save).and_return(false)
+          post :create, post: {}
+          response.should render_template("new")
+        end
       end
     end
     
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved post as @post" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Post.any_instance.stub(:save).and_return(false)
-        post :create, :post => {}
-        assigns(:post).should be_a_new(Post)
+    context "by user/guest" do
+      before(:each) do
+        post :create, post: valid_attributes
       end
       
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Post.any_instance.stub(:save).and_return(false)
-        post :create, :post => {}
-        response.should render_template("new")
-      end
+      it_behaves_like "restricted actions"
     end
   end
   
@@ -116,61 +175,91 @@ describe PostsController do
   end
   
   describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested post" do
-        post = Post.create! valid_attributes
-        # Assuming there are no other posts in the database, this
-        # specifies that the Post created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Post.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => post.id, :post => {'these' => 'params'}
+    context "by admin" do
+      before(:each) do
+        login_admin
       end
       
-      it "assigns the requested post as @post" do
-        post = Post.create! valid_attributes
-        put :update, :id => post.id, :post => valid_attributes
-        assigns(:post).should eq(post)
+      describe "with valid params" do
+        it "updates the requested post" do
+          post = Post.create! valid_attributes
+          # Assuming there are no other posts in the database, this
+          # specifies that the Post created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          Post.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+          put :update, id: post.id, post: {'these' => 'params'}
+        end
+        
+        it "assigns the requested post as @post" do
+          post = Post.create! valid_attributes
+          put :update, id: post.id, post: valid_attributes
+          assigns(:post).should eq(post)
+        end
+        
+        it "redirects to the post" do
+          post = Post.create! valid_attributes
+          put :update, id: post.id, post: valid_attributes
+          response.should redirect_to(post)
+        end
       end
       
-      it "redirects to the post" do
-        post = Post.create! valid_attributes
-        put :update, :id => post.id, :post => valid_attributes
-        response.should redirect_to(post)
+      describe "with invalid params" do
+        it "assigns the post as @post" do
+          post = Post.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Post.any_instance.stub(:save).and_return(false)
+          put :update, id: post.id, post: {}
+          assigns(:post).should eq(post)
+        end
+        
+        it "re-renders the 'edit' template" do
+          post = Post.create! valid_attributes
+          # Trigger the behavior that occurs when invalid params are submitted
+          Post.any_instance.stub(:save).and_return(false)
+          put :update, id: post.id, post: {}
+          response.should render_template("edit")
+        end
       end
     end
     
-    describe "with invalid params" do
-      it "assigns the post as @post" do
+    context "by user/guest" do
+      before(:each) do
         post = Post.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Post.any_instance.stub(:save).and_return(false)
-        put :update, :id => post.id.to_s, :post => {}
-        assigns(:post).should eq(post)
+        put :update, id: post.id, post: valid_attributes
       end
       
-      it "re-renders the 'edit' template" do
-        post = Post.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Post.any_instance.stub(:save).and_return(false)
-        put :update, :id => post.id.to_s, :post => {}
-        response.should render_template("edit")
-      end
+      it_behaves_like "restricted actions"
     end
   end
   
   describe "DELETE destroy" do
-    it "destroys the requested post" do
-      post = Post.create! valid_attributes
-      expect {
-        delete :destroy, :id => post.id.to_s
-      }.to change(Post, :count).by(-1)
+    context "by admin" do
+      before(:each) do
+        login_admin
+      end
+      
+      it "destroys the requested post" do
+        post = Post.create! valid_attributes
+        expect {
+          delete :destroy, id: post.id
+        }.to change(Post, :count).by(-1)
+      end
+      
+      it "redirects to the posts list" do
+        post = Post.create! valid_attributes
+        delete :destroy, id: post.id
+        response.should redirect_to(posts_url)
+      end
     end
     
-    it "redirects to the posts list" do
-      post = Post.create! valid_attributes
-      delete :destroy, :id => post.id.to_s
-      response.should redirect_to(posts_url)
+    context "by user/guest" do
+      before(:each) do
+        post = Post.create! valid_attributes
+        delete :destroy, id: post.id
+      end
+      
+      it_behaves_like "restricted actions"
     end
   end
 end

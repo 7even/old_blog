@@ -2,19 +2,26 @@ require 'spec_helper'
 
 describe "posts/index.html.erb" do
   before(:each) do
+    admin = User.create! email: 'admin@7vn.ru',
+                      password: 'secret',
+                          name: 'admin',
+                     confirmed: true,
+                         admin: true
+    controller.stub(:current_user).and_return(admin)
+    
     @user = stub_model(User)
     assign(:posts, [
       stub_model(Post,
-        :title      => 'Title',
-        :body       => 'MyText',
-        :author     => @user,
-        :created_at => Date.new(2011, 3, 1)
+             title: 'Title',
+              body: 'MyText',
+            author: @user,
+        created_at: Date.new(2011, 3, 1)
       ),
       stub_model(Post,
-        :title      => 'Title',
-        :body       => 'MyText',
-        :author     => @user,
-        :created_at => Date.new(2011, 4, 16)
+             title: 'Title',
+              body: 'MyText',
+            author: @user,
+        created_at: Date.new(2011, 4, 16)
       )
     ])
   end
