@@ -26,7 +26,8 @@ class PostsController < ApplicationController
   def create_comment
     authorize! :create, Comment
     @post = Post.find(params[:id])
-    @post.comments << Comment.create(params[:comment])
+    comment = Comment.create params[:comment].merge(author: current_user)
+    @post.comments << comment
     redirect_to @post
   end
   

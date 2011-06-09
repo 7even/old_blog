@@ -1,6 +1,6 @@
 <article class="comment">
   <header>
-    <%= link_to '7even', '/7even' %> @
+    <%= link_to comment.author.name, comment.author %> @
     <%= format_date(comment.created_at) %>
   </header>
   
