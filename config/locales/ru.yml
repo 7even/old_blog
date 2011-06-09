@@ -10,12 +10,16 @@ ru:
   posts:
     index:
       new: Новый пост
+      post_deleted: Пост удален.
     
     show:
       comments: Комментарии
       reply: ответить
       no_comments: К этой записи пока нет комментариев
       new_comment: Оставить комментарий
+      post_created: Пост создан.
+      post_updated: Пост сохранен.
+      comment_deleted: Комментарий удален.
     
     new:
       header: Новый пост
