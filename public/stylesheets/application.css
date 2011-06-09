@@ -109,6 +109,13 @@ section#confirmation {
   padding: 15px 15px 5em;
 }
 
+section#archive {
+  padding: 15px 15px 5em;
+}
+section#archive ul {
+  padding-left: 25px;
+}
+
 footer#page_footer {
   clear: both;
   width: 100%;

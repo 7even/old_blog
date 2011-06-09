@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts.xml
   def index
     @posts = Post.order('id DESC')
+    @years = Post.archive_monthes
     
     respond_to do |format|
       format.html # index.html.erb
@@ -14,8 +15,13 @@ class PostsController < ApplicationController
   
   def archive
     @posts = Post.created_on(params[:year], params[:month])
+    @years = Post.archive_monthes
     
     render 'index'
+  end
+  
+  def full_archive
+    @years = Post.archive_monthes
   end
   
   # GET /posts/1

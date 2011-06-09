@@ -11,6 +11,7 @@ Blog::Application.routes.draw do
     end
   end
   
+  get 'archive' => 'posts#full_archive', as: 'full_archive'
   get 'archive/:year/:month' => 'posts#archive', constraints: { year: /\d{4}/, month: /\d{1,2}/ }, as: 'archive'
   
   root :to => 'posts#index'

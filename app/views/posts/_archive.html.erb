@@ -1,0 +1,8 @@
+<h3>Архив</h3>
+<ul>
+  <% @years.each do |year, monthes| %>
+    <% monthes.each do |month| %>
+      <li><%= link_to t("monthes.m#{month}") + " #{year}", archive_path(:year => year, :month => month) %></li>
+    <% end %>
+  <% end %>
+</ul>

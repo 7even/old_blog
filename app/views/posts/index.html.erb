@@ -21,12 +21,7 @@
 
 <section id="sidebar">
   <nav>
-    <h3>Архив</h3>
-    <ul>
-      <li><%= link_to 'Май 2011',    posts_path(:year => 2011, :month => 5) %></li>
-      <li><%= link_to 'Апрель 2011', posts_path(:year => 2011, :month => 4) %></li>
-      <li><%= link_to 'Март 2011',   posts_path(:year => 2011, :month => 3) %></li>
-    </ul>
+    <%= render 'archive' %>
   </nav>
 </section>
 

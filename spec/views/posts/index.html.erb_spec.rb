@@ -24,6 +24,8 @@ describe "posts/index.html.erb" do
         created_at: Date.new(2011, 4, 16)
       )
     ])
+    
+    assign(:years, 2011 => [3, 4, 5])
   end
   
   it "renders a list of posts" do
