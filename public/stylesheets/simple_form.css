@@ -38,3 +38,7 @@
   display: block;
   font-style: italic;
 }
+
+.simple_form #post_body {
+  width: 80%;
+}
