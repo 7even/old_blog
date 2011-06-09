@@ -12,6 +12,12 @@ class PostsController < ApplicationController
     end
   end
   
+  def archive
+    @posts = Post.created_on(params[:year], params[:month])
+    
+    render 'index'
+  end
+  
   # GET /posts/1
   # GET /posts/1.xml
   def show
