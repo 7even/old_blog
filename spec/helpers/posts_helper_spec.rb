@@ -8,4 +8,14 @@ describe PostsHelper do
       helper.format_date(source).should == result
     end
   end
+  
+  describe "#links" do
+    context "by admin" do
+      it "shows all links"
+    end
+    
+    context "by user/guest" do
+      it "shows only link to index"
+    end
+  end
 end

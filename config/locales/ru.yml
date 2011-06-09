@@ -27,6 +27,8 @@ ru:
       to_index: < к списку постов
       show: посмотреть
       edit: изменить
+      delete: удалить
+      confirm_delete: Точно удаляем?
     
   
   comments:
