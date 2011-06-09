@@ -10,6 +10,7 @@ class Ability
       can :manage, :all
     elsif user.confirmed?
       can :create, Comment
+      can :delete, Comment, :author_id => user.id
     end
     
     # Define abilities for the passed in user here. For example:

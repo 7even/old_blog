@@ -7,6 +7,7 @@ Blog::Application.routes.draw do
   resources :posts do
     member do
       post :create_comment
+      delete 'destroy_comment/:id' => 'posts#destroy_comment', as: 'destroy_comment'
     end
   end
   

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  authorize_resource :except => :create_comment
+  authorize_resource :except => [:create_comment, :destroy_comment]
   
   # GET /posts
   # GET /posts.xml
@@ -29,6 +29,14 @@ class PostsController < ApplicationController
     comment = Comment.create params[:comment].merge(author: current_user)
     @post.comments << comment
     redirect_to @post
+  end
+  
+  def destroy_comment
+    @comment = Comment.find(params[:id])
+    authorize! :delete, @comment
+    post = @comment.post
+    @comment.destroy
+    redirect_to post, notice: t('posts.show.comment_deleted')
   end
   
   # GET /posts/new

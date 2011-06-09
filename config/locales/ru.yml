@@ -7,6 +7,12 @@ ru:
     invalid_token: Неверный код авторизации!
     access_restricted: user.should_not hack(this.site)
   
+  common:  
+    show: посмотреть
+    edit: изменить
+    delete: удалить
+    confirm_delete: Точно удаляем?
+  
   posts:
     index:
       new: Новый пост
@@ -29,10 +35,6 @@ ru:
     
     common:
       to_index: < к списку постов
-      show: посмотреть
-      edit: изменить
-      delete: удалить
-      confirm_delete: Точно удаляем?
     
   
   comments:

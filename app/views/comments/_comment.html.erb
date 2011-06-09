@@ -8,11 +8,11 @@
   
   <footer>
     <% if can? :create, Comment %>
+      <%= comment_links(comment) %>
+      
       <div style="display:none;" class="reply_form" id="reply_form_<%= comment.id %>">
         <%= render 'comments/form', :comment => Comment.new(:parent_id => comment.id) %>
       </div>
-      
-      <%= link_to t('posts.show.reply'), '#', :id => "reply_link_#{comment.id}", :class => 'reply_link' %>
     <% end %>
   </footer>
 </article>

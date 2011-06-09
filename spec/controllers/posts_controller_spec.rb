@@ -30,7 +30,7 @@ describe PostsController do
   
   def comment_attributes
     author = stub_model(User)
-    {content: 'первонах', author: author}
+    {content: 'первонах', author: @confirmed_user}
   end
   
   shared_examples_for "restricted actions" do
@@ -204,6 +204,57 @@ describe PostsController do
     context "by guest" do
       before(:each) do
         post :create_comment, id: @post.id, comment: comment_attributes
+      end
+      
+      it_behaves_like "restricted actions"
+    end
+  end
+  
+  describe "DELETE destroy_comment" do
+    before(:each) do
+      @post = Post.create! valid_attributes
+      @comment = Comment.create! comment_attributes.merge(author_id: @confirmed_user.id, post_id: @post.id)
+    end
+    
+    context "by admin" do
+      before(:each) do
+        login_admin
+      end
+      
+      it "deletes the comment" do
+        expect {
+          delete :destroy_comment, id: @comment.id
+        }.to change { Comment.count }.by(-1)
+      end
+      
+      it "redirects back to post with a notice" do
+        delete :destroy_comment, id: @comment.id
+        response.should redirect_to(@post)
+        flash[:notice].should == I18n.t('posts.show.comment_deleted')
+      end
+    end
+    
+    context "by author" do
+      before(:each) do
+        session[:user_id] = @confirmed_user.id
+      end
+      
+      it "deletes the comment" do
+        expect {
+          delete :destroy_comment, id: @comment.id
+        }.to change { Comment.count }.by(-1)
+      end
+      
+      it "redirects back to post with a notice" do
+        delete :destroy_comment, id: @comment.id
+        response.should redirect_to(@post)
+        flash[:notice].should == I18n.t('posts.show.comment_deleted')
+      end
+    end
+    
+    context "by user/guest" do
+      before(:each) do
+        delete :destroy_comment, id: @comment.id
       end
       
       it_behaves_like "restricted actions"
