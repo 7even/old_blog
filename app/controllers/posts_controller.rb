@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  authorize_resource :except => [:create_comment, :destroy_comment]
+  authorize_resource :except => [:create_comment, :destroy_comment, :archive, :full_archive]
   
   # GET /posts
   # GET /posts.xml
@@ -16,12 +16,14 @@ class PostsController < ApplicationController
   def archive
     @posts = Post.created_on(params[:year], params[:month])
     @years = Post.archive_monthes
+    authorize! :read, Post
     
     render 'index'
   end
   
   def full_archive
     @years = Post.archive_monthes
+    authorize! :read, Post
   end
   
   # GET /posts/1
