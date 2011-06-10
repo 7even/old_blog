@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
   
   START_MONTH = 201106
   
+  default_scope order('id DESC')
+  
   scope :created_on, lambda { |year, month|
     year, month = year.to_i, month.to_i
     start = Date.new(year, month, 1)

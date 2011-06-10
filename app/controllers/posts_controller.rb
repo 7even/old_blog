@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
   def index
-    @posts = Post.order('id DESC')
+    @posts = Post.includes(:comments, :author)
     @years = Post.archive_monthes
     
     respond_to do |format|
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
   
   def archive
-    @posts = Post.created_on(params[:year], params[:month])
+    @posts = Post.includes(:comments, :author).created_on(params[:year], params[:month])
     @years = Post.archive_monthes
     authorize! :read, Post
     
