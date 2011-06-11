@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
+  authorize_resource :only => [:show, :edit, :update, :destroy]
+  
   def index
+    authorize! :manage, User
     @users = User.all
   end
   

@@ -1,2 +1,33 @@
-<h1>User#show</h1>
-<p>Find me in app/views/user/show.html.erb</p>
+<section id="user">
+  <h2><%= @user.name %></h2>
+  
+  <% if can? :manage, @user %>
+    <section>
+      <div><%= t('users.show.email') %></div>
+      <div><%= mail_to(@user.email, nil, encode: 'javascript') %></div>
+    </section>
+  <% end %>
+  
+  <section>
+    <div><%= t('users.show.registered') %></div>
+    <div><%= @user.created_at.strftime('%d.%m.%Y') %></div>
+  </section>
+  
+  <% if can?(:manage, @user) && @user.confirmed? %>
+    <section>
+      <div style="float:none; width:auto;"><%= t('users.show.confirmed') %></div>
+    </section>
+  <% end %>
+  
+  <% if @user.wrote_posts? %>
+    <section>
+      <div><%= t('users.show.posts') %></div>
+      <div><%= @user.posts.count %></div>
+    </section>
+  <% end %>
+  
+  <section>
+    <div><%= t('users.show.comments') %></div>
+    <div><%= @user.comments.count %></div>
+  </section>
+</section>

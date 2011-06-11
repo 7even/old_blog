@@ -2,11 +2,25 @@ require 'spec_helper'
 
 describe UsersController do
   before(:each) do
-    @user = User.create(:email => 'mail@example.com', :password => 'secret', :name => 'ololo', :token => '123')
+    @admin = User.create! email: 'admin@7vn.ru',
+                       password: 'secret',
+                           name: 'admin',
+                      confirmed: true,
+                          admin: true
+    
+    @user = User.create email: 'mail@example.com',
+                     password: 'secret',
+                         name: 'ololo',
+                        token: '123'
+  end
+  
+  def login_admin
+    session[:user_id] = @admin.id
   end
   
   describe "GET 'index'" do
     it "should be successful" do
+      login_admin
       get 'index'
       response.should be_success
     end
@@ -130,12 +144,17 @@ describe UsersController do
   
   describe "GET 'edit'" do
     it "should be successful" do
+      login_admin
       get 'edit', :id => @user.id
       response.should be_success
     end
   end
   
   describe "GET 'update'" do
+    before(:each) do
+      login_admin
+    end
+    
     context "with valid attributes" do
       it "should be successful" do
         get 'update', :id => @user.id
@@ -155,6 +174,7 @@ describe UsersController do
   
   describe "GET 'destroy'" do
     it "should be successful" do
+      login_admin
       get 'destroy', :id => @user.id
       response.should redirect_to(root_path)
       flash[:notice].should == I18n.t('users.destroyed')

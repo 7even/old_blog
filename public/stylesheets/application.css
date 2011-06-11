@@ -104,6 +104,10 @@ section#authentication p label {
 section#user {
   padding: 15px 15px 5em;
 }
+section#user section div:first-child {
+  float: left;
+  width: 200px;
+}
 
 section#confirmation {
   padding: 15px 15px 5em;

@@ -51,6 +51,12 @@ ru:
     saved: Настройки сохранены
     destroyed: Пользователь удален
     new: Регистрация
+    show:
+      email: E-mail
+      registered: Дата регистрации
+      confirmed: E-mail подтвержден
+      posts: Написал(а) постов
+      comments: Написал(а) комментариев
   
   confirm:
     header: Подтверждение регистрации
