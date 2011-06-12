@@ -26,17 +26,24 @@ module Authorization
   end
   
   module InstanceMethods
+    attr_reader :old_password, :new_password
+    
+    def new_password=(new_password)
+      self.password = self.class.encode_password(new_password, self.salt)
+    end
+    
     def save(*args)
       if self.new_record?
-        self.salt     = self.class.generate_salt
-        self.password = self.class.encode_password(self.password, self.salt)
-        self.token    = self.generate_token
+        self.salt         = self.class.generate_salt
+        self.token        = self.generate_token
+        self.new_password = self.password
       end
       
       super(*args)
     end
     
     def password_valid?(raw_password)
+      return false if raw_password.nil?
       self.class.encode_password(raw_password, self.salt) == self.password
     end
     

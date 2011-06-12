@@ -25,6 +25,24 @@ describe User do
     end
   end
   
+  describe "#update_attributes" do
+    context "with :new_password" do
+      it "sets hashed :new_password to the password attribute" do
+        expect {
+          subject.update_attributes(new_password: 'new secret')
+        }.to change { subject.password }
+      end
+    end
+    
+    context "without :new_password" do
+      it "doesn't touch stored password" do
+        expect {
+          subject.update_attributes(name: 'bugagalol')
+        }.not_to change { subject.password }
+      end
+    end
+  end
+  
   describe ".authenticate" do
     context "with valid credentials" do
       it "authenticates a user" do

@@ -102,7 +102,7 @@ section#authentication p label {
 }
 
 section#user {
-  padding: 15px 15px 5em;
+  padding: 15px;
 }
 section#user section div:first-child {
   float: left;

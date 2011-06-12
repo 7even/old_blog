@@ -62,10 +62,25 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     
-    if @user.update_attributes(params[:user])
-      redirect_to edit_user_path(@user), :notice => t('users.saved')
+    if params[:user][:new_password].present?
+      # если юзер меняет пароль
+      if current_user.admin? || @user.password_valid?(params[:user][:old_password])
+        # все хорошо - ничего не делаем
+      else
+        # если юзер - не админ, и неправильно ввел старый пароль
+        @user.errors.add :old_password, t('users.edit.old_password_needed')
+        render(action: 'edit') and return
+      end
     else
-      render :action => 'edit'
+      params[:user].delete(:new_password)
+    end
+    
+    params[:user].delete(:old_password)
+    
+    if @user.update_attributes(params[:user])
+      redirect_to edit_user_path(@user), notice: t('users.saved')
+    else
+      render action: 'edit'
     end
   end
   

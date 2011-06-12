@@ -31,3 +31,9 @@
     <div><%= @user.comments.count %></div>
   </section>
 </section>
+
+<p class="links">
+  <% if can? :edit, @user %>
+    <%= link_to t('common.edit'), edit_user_path(@user) %>
+  <% end %>
+</p>

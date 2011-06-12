@@ -9,6 +9,8 @@ ru:
         email: 'Почта'
         password: 'Пароль'
         name: 'Имя'
+        old_password: 'Пароль'
+        new_password: 'Новый пароль'
       
     
     hints:
@@ -16,6 +18,8 @@ ru:
         # title: 'название поста'
         body: 'текст обрабатывается движком textile'
       
+      user:
+        new_password: для смены пароля необходимо указать действующий пароль
     
     placeholders:
       post:

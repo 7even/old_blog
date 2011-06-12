@@ -1,2 +1,14 @@
-<h1>User#edit</h1>
-<p>Find me in app/views/user/edit.html.erb</p>
+<section id="user">
+  <h2><%= t('users.edit.header', user: @user.name) %></h2>
+  
+  <%= simple_form_for(@user) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :old_password, :as => :string unless can?(:manage, User) %>
+    <%= f.input :new_password, :as => :string %>
+    <%= f.submit %>
+  <% end %>
+</section>
+
+<p class="links">
+  <%= link_to t('users.edit.show'), @user %>
+</p>
