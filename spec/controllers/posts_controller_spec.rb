@@ -44,8 +44,8 @@ describe PostsController do
     @admin = User.create! email: 'admin@7vn.ru',
                        password: 'secret',
                            name: 'admin',
-                      confirmed: true,
-                          admin: true
+                      confirmed: true
+    @admin.update_attribute(:admin, true)
     
     @confirmed_user = User.create! email: 'user@7vn.ru',
                                 password: 'secret',

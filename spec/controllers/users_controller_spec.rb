@@ -5,8 +5,8 @@ describe UsersController do
     @admin = User.create! email: 'admin@7vn.ru',
                        password: 'secret',
                            name: 'admin',
-                      confirmed: true,
-                          admin: true
+                      confirmed: true
+    @admin.update_attribute(:admin, true)
     
     @user = User.create email: 'mail@example.com',
                      password: 'secret',

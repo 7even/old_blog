@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :password, :name
   validates_uniqueness_of :email
   
+  attr_protected :admin
+  
   include Authorization
   
   def wrote_posts?
