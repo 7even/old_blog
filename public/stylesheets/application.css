@@ -120,6 +120,13 @@ section#archive ul {
   padding-left: 25px;
 }
 
+section#contacts, section#about {
+  padding: 15px 15px 5em;
+}
+section#contacts ul {
+  padding-left: 25px;
+}
+
 footer#page_footer {
   clear: both;
   width: 100%;
@@ -156,6 +163,7 @@ section#post p.links {
 pre {
   background: none;
   border: 1px dashed;
+  clear: both;
 }
 pre code {
   font-size: 12px;
