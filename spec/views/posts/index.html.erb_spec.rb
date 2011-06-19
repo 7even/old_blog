@@ -13,13 +13,13 @@ describe "posts/index.html.erb" do
     assign(:posts, [
       stub_model(Post,
              title: 'Title',
-              body: 'MyText',
+           preview: 'MyText',
             author: @user,
         created_at: Date.new(2011, 3, 1)
       ),
       stub_model(Post,
              title: 'Title',
-              body: 'MyText',
+           preview: 'MyText',
             author: @user,
         created_at: Date.new(2011, 4, 16)
       )

@@ -5,7 +5,9 @@ class Post < ActiveRecord::Base
   validates_presence_of :title, :body
   
   START_MONTH = 201106
+  CUT_TAG = /<cut[^>]*>/
   
+  before_save :make_preview
   default_scope order('id DESC')
   
   scope :created_on, lambda { |year, month|
@@ -28,5 +30,10 @@ class Post < ActiveRecord::Base
   
   def has_comments?
     comments.size > 0
+  end
+  
+  def make_preview
+    match = CUT_TAG.match(self.body)
+    self.preview = match ? match.pre_match : self.body
   end
 end
