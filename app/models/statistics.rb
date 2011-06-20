@@ -28,7 +28,7 @@ class Statistics < ActiveRecord::Base
     if page_id = self.find_page_id(params)
       create! page_id: page_id,
           resource_id: params[:id],
-                   ip: env['REMOTE_ADDR'] || env['HTTP_X_REAL_IP'],
+                   ip: env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR'],
             useragent: env['HTTP_USER_AGENT'],
              referrer: env['HTTP_REFERER'],
                  user: user
