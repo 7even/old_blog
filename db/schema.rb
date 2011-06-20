@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110619213638) do
+ActiveRecord::Schema.define(:version => 20110619231618) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(:version => 20110619213638) do
     t.datetime "updated_at"
     t.integer  "author_id"
     t.text     "preview"
+  end
+
+  create_table "statistics", :force => true do |t|
+    t.integer  "page_id"
+    t.integer  "resource_id"
+    t.string   "ip"
+    t.string   "useragent"
+    t.string   "referrer"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
