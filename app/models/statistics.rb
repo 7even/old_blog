@@ -23,14 +23,15 @@ class Statistics < ActiveRecord::Base
   }
   
   def self.log(params, env, user)
-    # logger.debug "params = #{params[:controller]}##{params[:action]}"
-    # logger.debug "env = #{env['REMOTE_ADDR']} / #{env['HTTP_USER_AGENT']} / #{env['HTTP_REFERER']}"
+    # puts "params = #{params[:controller]}##{params[:action]}"
+    # puts "env = #{env['REMOTE_ADDR']} / #{env['HTTP_USER_AGENT']} / #{env['HTTP_REFERER']} / #{env['PATH_INFO']}"
     if page_id = self.find_page_id(params)
       create! page_id: page_id,
           resource_id: params[:id],
                    ip: env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR'],
             useragent: env['HTTP_USER_AGENT'],
              referrer: env['HTTP_REFERER'],
+                 path: env['PATH_INFO'],
                  user: user
     end
   end
