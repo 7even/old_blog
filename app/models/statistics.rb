@@ -24,7 +24,7 @@ class Statistics < ActiveRecord::Base
   
   MY_IPS = ['77.37.200.18']
   
-  scope :real,   where('ip NOT IN ?',    MY_IPS)
+  scope :real,   where('ip NOT IN (?)',  MY_IPS)
   scope :recent, where('created_at > ?', 1.day.ago)
   
   def self.log(params, env, user)
